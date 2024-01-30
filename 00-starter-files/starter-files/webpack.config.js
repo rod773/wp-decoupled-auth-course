@@ -6,12 +6,12 @@ module.exports = (env, arg) => {
     entry: ["./src/index.js"],
     output: {
       filename: "bundle.min.js",
-      path: path.resolve(__dirname, "dist")
+      path: path.resolve(__dirname, "dist"),
     },
+    mode: "development",
     devServer: {
       port: 3000,
-      https: true,
-      contentBase: path.join(__dirname, "dist")
+      static: path.resolve(__dirname, "dist"),
     },
     module: {
       rules: [
@@ -21,15 +21,15 @@ module.exports = (env, arg) => {
           use: {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env"]
-            }
-          }
-        }
-      ]
+              presets: ["@babel/preset-env"],
+            },
+          },
+        },
+      ],
     },
     optimization: {
-      minimizer: [new UglifyJSPlugin()]
-    }
+      minimizer: [new UglifyJSPlugin()],
+    },
   };
   if (arg.mode === "development") {
     config.devtool = "source-map";
